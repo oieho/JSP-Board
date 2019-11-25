@@ -21,7 +21,7 @@
 	if(session.getAttribute("userID") != null){
 		userID = (String) session.getAttribute("userID");
 	}
-	if(userID != null){
+	if(userID == null){
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
 		script.println("alert('로그인이 필요합니다.')");
@@ -36,8 +36,8 @@
 			script.println("history.back()");
 			script.println("</script>");
 		} else {
-			BbsDAO BbsDAO = new BbsDAO();
-			int result = BbsDAO.write(bbs.getBbsTitle(), bbs.getBbsContent());
+			BbsDAO bbsDAO = new BbsDAO();
+			int result = bbsDAO.write(bbs.getBbsTitle(), userID, bbs.getBbsContent());
 			if (result == -1) {
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
